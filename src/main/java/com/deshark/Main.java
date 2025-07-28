@@ -82,7 +82,8 @@ public class Main {
         try {
             checkExistingVersions(metaKey, versionsKey, versionName);
         } catch (IOException e) {
-            logger.error("Version check failed");
+            logger.error("Version check failed for metaKey: {}, versionsKey: {}, versionName: {}",
+                    metaKey, versionsKey, versionName, e);
             return;
         }
 
@@ -177,6 +178,8 @@ public class Main {
         String metaUrl = downloadUrl + "/" + metaKey;
         logger.info("================");
         logger.info("发布完成! 耗时: {}s", (System.currentTimeMillis() - startTime) / 1000.0);
+        logger.info("上传文件: {}个", ModpackFileUploadTask.getUploadedFilesCount());
+        logger.info("跳过文件: {}个", ModpackFileUploadTask.getSkippedFilesCount());
         logger.info("版本: {}", versionName);
         logger.info("meta.json: {}", metaUrl);
 
